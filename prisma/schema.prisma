@@ -1,0 +1,138 @@
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  firstname      String
+  lastname  String
+  email     String   @unique
+  emailVerified DateTime?    // email-verification vagy OAuth esetén
+  password String?
+  image         String?      // OAuth profilkép
+  phone String? @unique
+  active Boolean @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  last_login DateTime?
+  animals Animal[]
+}
+
+enum Role {
+  ADMIN
+  OWNER
+  CARETAKER
+}
+
+model Admin {
+  id Int @id @default(autoincrement())
+  shelter Shelter? @relation(fields: [shelter_id], references: [id], onDelete: SetNull)
+  shelter_id Int?
+  name String
+  email String @unique
+  emailVerified DateTime?    // email-verification vagy OAuth esetén
+  role Role
+  password String
+  phone String
+  active Boolean @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  last_login DateTime?
+}
+
+model Shelter {
+  id Int @id @default(autoincrement())
+  name String
+  zip_code Int
+  county String
+  city String
+  address String
+  email String
+  image String?
+  website String?
+  opening_hours Json?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  admins   Admin[]
+  animals  Animal[]
+
+  @@index([zip_code])
+  @@index([county])
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  LARGE
+  XLARGE
+}
+
+enum AdoptionStatus {
+  AVAILABLE
+  PENDING
+  ADOPTED
+}
+
+enum EnergyLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum InOrOut {
+  IN
+  OUT
+  BOTH
+}
+
+model Animal {
+  id Int @id @default(autoincrement())
+  shelter Shelter @relation(fields: [shelter_id], references: [id], onDelete: SetNull)
+  shelter_id Int
+  type AnimalType @relation(fields: [type_id], references: [id], onDelete: SetNull)
+  type_id Int
+  name String
+  photos Json?
+  arrival_date DateTime
+  adoption_status AdoptionStatus
+  breed String?
+  age Int?
+  weight Float?
+  size Size?
+  gender String?
+  color String?
+  energy_level EnergyLevel?
+  in_or_out InOrOut?
+  kid_friendly Boolean?
+  dog_friendly Boolean?
+  pet_friendly Boolean?
+  vaccinated Boolean?
+  neutered Boolean?
+  microchipped Boolean?
+  special_needs String?
+  user_id Int?
+  new_home User? @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  description String?
+  active Boolean @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([shelter_id])
+  @@index([type_id])
+  @@index([adoption_status])
+  @@index([in_or_out])
+}
+
+model AnimalType {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique   // kutya cica bármi
+  animals Animal[]
+}
+

@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:18.2
+    container_name: w-eb_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: gombi
+      POSTGRES_PASSWORD: Gombi1961102
+      POSTGRES_DB: w_eb
+    ports:
+      - "5432:5432"        # host 5432 → konténer 5432
+    volumes:
+      - db_data:/var/lib/postgresql   # a helyes mount útvonal PostgreSQL 18+ esetén
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  db_data:
