@@ -1,0 +1,39 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Háttér (opcionális, itt átlátszó) -->
+
+<!-- Fő forma: Egy ház, aminek a teteje egy szív íveit követi -->
+
+<path d="M200 340C200 340 80 280 80 180C80 130 120 90 160 90C180 90 195 100 200 115C205 100 220 90 240 90C280 90 320 130 320 180C320 280 200 340 200 340Z"
+fill="#E87D43"
+stroke="#E87D43"
+stroke-width="2"/>
+
+<!-- Belső "Ház" alap kivágás vagy díszítés -->
+
+<path d="M160 310 L160 250 L240 250 L240 310"
+stroke="white"
+stroke-width="12"
+stroke-linecap="round"
+stroke-linejoin="round"
+opacity="0.9"/>
+
+<!-- Minimalista Mancs ikon a szív közepén -->
+
+<g fill="white">
+<!-- Központi talppárna -->
+<path d="M175 210 C175 198 186 190 200 190 C214 190 225 198 225 210 C225 222 214 230 200 230 C186 230 175 222 175 210 Z"/>
+
+<!-- Ujjak szimmetrikusan -->
+<circle cx="165" cy="185" r="10"/>
+<circle cx="185" cy="165" r="11"/>
+<circle cx="215" cy="165" r="11"/>
+<circle cx="235" cy="185" r="10"/>
+
+
+</g>
+
+<!-- Felirat (opcionális, Apple-szerű tipográfiával) -->
+
+<!-- <text x="200" y="380" font-family="SF Pro, Helvetica, Arial" font-size="24" fill="#1D1D1F" text-anchor="middle" font-weight="500">PAW HAVEN</text> -->
+
+</svg>
