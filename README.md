@@ -1,15 +1,28 @@
-## Prisma
-- Migráció létrehozása: npx prisma migrate dev --name valami
-- Migráció clean futtatása: npx prisma migrate reset
-- Migráció és db ellenőrzése: npx prisma migrate status
-- Schema ellenőrzése: npx prisma validate
-- Kliens generálása: npx prisma generate
+PRISMAKIKÉSZÍT:
+npm install @prisma/client @prisma/adapter-pg pg
+npm install -D prisma @types/pg
+npx prisma init
 
-## NEXT.js
-- Fejlesztői szerver indítása: npm run dev
-- lint ellenőrzés: npm run lint
+schema prisma:
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+datasource db {
+  provider = "postgresql"
+}
 
-## Docker
-- Konténerek kilistázása: docker ps
-- konténerek futtatása: docker compose up -d
-- Adminer: localhost:8080 alapvetően
+npx prisma generate
+npx prisma migrate dev --name init
+
+prisma.ts:
+import "dotenv/config";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@/generated/prisma/client";
+
+const connectionString = `${process.env.DATABASE_URL}`;
+
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
+
+export { prisma };

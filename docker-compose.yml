@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:18.2
-    container_name: w-eb_postgres
+    container_name: w-eb_pg
     restart: always
     environment:
       POSTGRES_USER: gombi
