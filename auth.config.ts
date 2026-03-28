@@ -4,19 +4,21 @@ type AuthUser = {
   id: string;
   role?: string;
   shelter_id?: number | null;
+  shelter_image?: string | null;
 };
 
 type AuthToken = {
   id?: string;
   role?: string;
   shelter_id?: number | null;
+  shelter_image?: string | null;
   [k: string]: unknown;
 };
 
 export const authConfig = {
   providers: [],
   pages: {
-    signIn: "/admin/login",
+    signIn: "/admin/signin",
   },
   callbacks: {
     jwt({ token, user }) {
@@ -27,6 +29,7 @@ export const authConfig = {
           id: u.id,
           role: u.role,
           shelter_id: u.shelter_id,
+          shelter_image: u.shelter_image,
         } as AuthToken;
       }
       return token as AuthToken;
@@ -36,12 +39,14 @@ export const authConfig = {
         id?: string;
         role?: string;
         shelter_id?: number | null;
+        shelter_image?: string | null;
       };
 
       const t = token as AuthToken;
       if (t.id) user.id = t.id;
       if (t.role) user.role = t.role;
       user.shelter_id = t.shelter_id ?? null;
+      user.shelter_image = t.shelter_image ?? null;
 
       return session;
     },

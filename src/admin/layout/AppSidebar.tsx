@@ -12,6 +12,7 @@ import {
   HorizontaLDots,
   ListIcon,
   PageIcon,
+  FootprintIcon,
   PieChartIcon,
   PlugInIcon,
   TableIcon,
@@ -29,21 +30,24 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
-    name: "Dashboard",
+    name: "Irányítópult",
     path: "/admin/",
     //subItems: [{ name: "Ecommerce", path: "/admin/", pro: false }],
   },
   {
     icon: <CalenderIcon />,
-    name: "Calendar",
+    name: "Naptár",
     path: "/admin/calendar",
   },
   {
     icon: <UserCircleIcon />,
-    name: "User Profile",
+    name: "Profil",
     path: "/admin/profile",
   },
 
+
+];
+  {/* GOMBI: EZ FELULRE MEHET BELE A TOMBBE
   {
     name: "Forms",
     icon: <ListIcon />,
@@ -61,10 +65,16 @@ const navItems: NavItem[] = [
       { name: "Blank Page", path: "/admin/blank", pro: false },
       { name: "404 Error", path: "/admin/error-404", pro: false },
     ],
+  }
+  */}
+const othersItems: NavItem[] = [
+  {
+    icon: <FootprintIcon />,
+    name: "Állatok",
+    path: "/admin/animals",
   },
 ];
-
-const othersItems: NavItem[] = [
+  {/* GOMBI: SUBMENU PONTOK
   {
     icon: <PieChartIcon />,
     name: "Charts",
@@ -93,7 +103,7 @@ const othersItems: NavItem[] = [
       //{ name: "Sign Up", path: "/admin/signup", pro: false },
     ],
   },
-];
+  */}
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
@@ -314,22 +324,22 @@ const AppSidebar: React.FC = () => {
             <>
               <Image
                 className="dark:hidden"
-                src="/images/logo/logo.svg"
+                src="/images/logo/icon.png"
                 alt="Logo"
-                width={150}
-                height={40}
+                width={80}
+                height={80}
               />
               <Image
                 className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                src="/images/logo/icon.png"
                 alt="Logo"
-                width={150}
-                height={40}
+                width={80}
+                height={80}
               />
             </>
           ) : (
             <Image
-              src="/images/logo/logo-icon.svg"
+              src="/images/logo/icon.png"
               alt="Logo"
               width={32}
               height={32}
@@ -349,7 +359,7 @@ const AppSidebar: React.FC = () => {
                 }`}
               >
                 {isExpanded || isHovered || isMobileOpen ? (
-                  "Menu"
+                  "Alap menüpontok"
                 ) : (
                   <HorizontaLDots />
                 )}
@@ -366,7 +376,7 @@ const AppSidebar: React.FC = () => {
                 }`}
               >
                 {isExpanded || isHovered || isMobileOpen ? (
-                  "Others"
+                  "Állatok menüpontok"
                 ) : (
                   <HorizontaLDots />
                 )}

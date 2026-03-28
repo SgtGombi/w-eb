@@ -6,7 +6,12 @@ import bcrypt from "bcryptjs";
 
 declare module "next-auth" {
   interface Session {
-    user: { id: string; role: string; shelter_id: number | null } & DefaultSession["user"];
+    user: {
+      id: string;
+      role: string;
+      shelter_id: number | null;
+      shelter_image?: string | null;
+    } & DefaultSession["user"];
   }
 }
 
@@ -23,6 +28,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const admin = await prisma.admin.findUnique({
           where: { email: credentials.email as string },
+          include: {
+            shelter: {
+              select: { image: true },
+            },
+          },
         });
 
         if (!admin || !admin.active) return null;
@@ -39,6 +49,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: admin.email,
           role: admin.role,
           shelter_id: admin.shelter_id,
+          shelter_image: admin.shelter?.image ?? null,
         };
       },
     }),
